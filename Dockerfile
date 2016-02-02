@@ -6,13 +6,14 @@ EXPOSE 5432
 
 ARG VERSION="1.11.4"
 ARG CHANNEL="releases"
+arg EXT="com"
 
 RUN apt-get update && apt-get install wget unzip -y && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "$CHANNEL" | grep "releases" 2>&1 > /dev/null \
- && URL="https://nexus.linagora.com/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}" \
- || URL="https://nexus.linagora.com/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}-SNAPSHOT"; \
+ && URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}" \
+ || URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}-SNAPSHOT"; \
  wget --no-check-certificate --progress=bar:force:noscroll \
  -O linshare.war "${URL}&p=war" \
  && wget --no-check-certificate --progress=bar:force:noscroll \
