@@ -24,7 +24,8 @@ RUN echo "$CHANNEL" | grep "releases" 2>&1 > /dev/null \
 RUN unzip linshare.war \
  WEB-INF/classes/sql/postgresql/createSchema.sql \
  WEB-INF/classes/sql/postgresql/import-postgresql.sql \
- -d / && rm -f linshare.war
+ && ln -s WEB-INF/classes/sql/postgresql/* . \
+ && rm -f linshare.war
 
 COPY createDatabase.sql /docker-entrypoint-initdb.d/00_createDatabase.sql
 
