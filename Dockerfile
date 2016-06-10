@@ -4,7 +4,7 @@ MAINTAINER Thomas Sarboni <tsarboni@linagora.com>
 
 EXPOSE 5432
 
-ARG VERSION="1.11.4"
+ARG VERSION="1.12.1"
 ARG CHANNEL="releases"
 arg EXT="com"
 
@@ -12,20 +12,20 @@ RUN apt-get update && apt-get install wget unzip -y && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN echo "$CHANNEL" | grep "releases" 2>&1 > /dev/null \
- && URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}" \
- || URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&v=${VERSION}-SNAPSHOT"; \
+ && URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&c=sql&v=${VERSION}" \
+ || URL="https://nexus.linagora.${EXT}/service/local/artifact/maven/content?r=linshare-${CHANNEL}&g=org.linagora.linshare&a=linshare-core&c=sql&v=${VERSION}-SNAPSHOT"; \
  wget --no-check-certificate --progress=bar:force:noscroll \
- -O linshare.war "${URL}&p=war" \
+ -O linshare.tar.bz2 "${URL}&p=tar.bz2" \
  && wget --no-check-certificate --progress=bar:force:noscroll \
- -O linshare.war.sha1 "${URL}&p=war.sha1" \
- && sed -i 's#^\(.*\)#\1\tlinshare.war#' linshare.war.sha1 \
- && sha1sum -c linshare.war.sha1 --quiet && rm -f linshare.war.sha1
+ -O linshare.tar.bz2.sha1 "${URL}&p=tar.bz2.sha1" \
+ && sed -i 's#^\(.*\)#\1\tlinshare.tar.bz2#' linshare.tar.bz2.sha1 \
+ && sha1sum -c linshare.tar.bz2.sha1 --quiet && rm -f linshare.tar.bz2.sha1
 
-RUN unzip linshare.war \
- WEB-INF/classes/sql/postgresql/createSchema.sql \
- WEB-INF/classes/sql/postgresql/import-postgresql.sql \
- && ln -s WEB-INF/classes/sql/postgresql/* . \
- && rm -f linshare.war
+RUN tar -xvjf linshare.tar.bz2 \
+linshare-core-sql/postgresql/createSchema.sql \
+linshare-core-sql/postgresql/import-postgresql.sql \
+&& ln -s linshare-core-sql/postgresql/* . \
+&& rm -f linshare.tar.bz2
 
 COPY createDatabase.sql /docker-entrypoint-initdb.d/00_createDatabase.sql
 
