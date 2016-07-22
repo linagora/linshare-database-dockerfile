@@ -4,7 +4,7 @@ MAINTAINER Thomas Sarboni <tsarboni@linagora.com>
 
 EXPOSE 5432
 
-ARG VERSION="1.12.1"
+ARG VERSION="1.12.3"
 ARG CHANNEL="releases"
 arg EXT="com"
 
