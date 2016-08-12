@@ -1,6 +1,6 @@
 FROM postgres:9.5
 
-MAINTAINER Thomas Sarboni <tsarboni@linagora.com>
+MAINTAINER LinShare <linshare@linagora.com>
 
 EXPOSE 5432
 
