@@ -1,10 +1,10 @@
 FROM postgres:9.5
 
-MAINTAINER Thomas Sarboni <tsarboni@linagora.com>
+MAINTAINER LinShare <linshare@linagora.com>
 
 EXPOSE 5432
 
-ARG VERSION="1.12.3"
+ARG VERSION="RELEASE"
 ARG CHANNEL="releases"
 arg EXT="com"
 
