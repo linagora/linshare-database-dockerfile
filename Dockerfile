@@ -25,7 +25,4 @@ linshare-core-sql/postgresql/import-postgresql.sql \
 && ln -s linshare-core-sql/postgresql/* . \
 && rm -f linshare.tar.bz2
 
-COPY createDatabase.sql /docker-entrypoint-initdb.d/00_createDatabase.sql
-
 COPY init-pg.sh /docker-entrypoint-initdb.d/01_init-pg.sh
-
