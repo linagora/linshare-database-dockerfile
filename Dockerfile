@@ -4,7 +4,7 @@ MAINTAINER LinShare <linshare@linagora.com>
 
 EXPOSE 5432
 
-ARG VERSION="4.0.2"
+ARG VERSION="4.1.0"
 ARG CHANNEL="releases"
 arg EXT="com"
 
