@@ -1,4 +1,4 @@
-FROM postgres:11
+FROM postgres:13
 
 MAINTAINER LinShare <linshare@linagora.com>
 
