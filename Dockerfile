@@ -1,6 +1,6 @@
 FROM postgres:13
 
-MAINTAINER LinShare <linshare@linagora.com>
+MAINTAINER LinShare  <linshare@linagora.com>
 
 EXPOSE 5432
 
